@@ -14,6 +14,7 @@ namespace Sylius\Behat\Page\Admin\Taxon;
 use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Exception\ElementNotFoundException;
+use DMore\ChromeDriver\ChromeDriver;
 use Sylius\Behat\Behaviour\SpecifiesItsCode;
 use Sylius\Behat\Page\Admin\Crud\CreatePage as BaseCreatePage;
 use Sylius\Behat\Service\SlugGenerationHelper;
@@ -92,7 +93,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
         $this->activateLanguageTab($languageCode);
         $this->getElement('name', ['%language%' => $languageCode])->setValue($name);
 
-        if ($this->getDriver() instanceof Selenium2Driver) {
+        if ($this->getDriver() instanceof Selenium2Driver || $this->getDriver() instanceof ChromeDriver) {
             SlugGenerationHelper::waitForSlugGeneration(
                 $this->getSession(),
                 $this->getElement('slug', ['%language%' => $languageCode])
@@ -150,7 +151,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
      */
     public function activateLanguageTab($locale)
     {
-        if (!$this->getDriver() instanceof Selenium2Driver) {
+        if (!$this->getDriver() instanceof Selenium2Driver && !$this->getDriver() instanceof ChromeDriver) {
             return;
         }
 

@@ -13,6 +13,7 @@ namespace Sylius\Behat\Page\Shop\Checkout;
 
 use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Mink\Exception\ElementNotFoundException;
+use DMore\ChromeDriver\ChromeDriver;
 use Sylius\Behat\Page\SymfonyPage;
 
 /**
@@ -33,7 +34,7 @@ class SelectPaymentPage extends SymfonyPage implements SelectPaymentPageInterfac
      */
     public function selectPaymentMethod($paymentMethod)
     {
-        if ($this->getDriver() instanceof Selenium2Driver) {
+        if ($this->getDriver() instanceof Selenium2Driver || $this->getDriver() instanceof ChromeDriver) {
             $this->getElement('payment_method_select', ['%payment_method%' => $paymentMethod])->click();
 
             return;

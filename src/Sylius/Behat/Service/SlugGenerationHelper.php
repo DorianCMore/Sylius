@@ -14,6 +14,7 @@ namespace Sylius\Behat\Service;
 use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Session;
+use DMore\ChromeDriver\ChromeDriver;
 use Webmozart\Assert\Assert;
 
 /**
@@ -27,7 +28,8 @@ abstract class SlugGenerationHelper
      */
     public static function waitForSlugGeneration(Session $session, NodeElement $element)
     {
-        Assert::isInstanceOf($session->getDriver(), Selenium2Driver::class);
+        $driver = $session->getDriver();
+        Assert::true($driver instanceof Selenium2Driver || $driver instanceof ChromeDriver);
 
         JQueryHelper::waitForAsynchronousActionsToFinish($session);
         static::isElementReadonly($session, $element);
@@ -40,7 +42,8 @@ abstract class SlugGenerationHelper
      */
     public static function enableSlugModification(Session $session, NodeElement $element)
     {
-        Assert::isInstanceOf($session->getDriver(), Selenium2Driver::class);
+        $driver = $session->getDriver();
+        Assert::true($driver instanceof Selenium2Driver || $driver instanceof ChromeDriver);
 
         JQueryHelper::waitForAsynchronousActionsToFinish($session);
         static::waitForElementToBeClickable($session, $element);
@@ -58,7 +61,7 @@ abstract class SlugGenerationHelper
      */
     public static function isSlugReadonly(Session $session, NodeElement $element)
     {
-        if (!$session->getDriver() instanceof Selenium2Driver) {
+        if (!$session->getDriver() instanceof Selenium2Driver && !$session->getDriver() instanceof ChromeDriver) {
             return $element->hasAttribute('readonly');
         }
 

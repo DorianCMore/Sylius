@@ -14,6 +14,7 @@ namespace Sylius\Behat\Page\Admin\Taxon;
 use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Exception\ElementNotFoundException;
+use DMore\ChromeDriver\ChromeDriver;
 use Sylius\Behat\Behaviour\ChecksCodeImmutability;
 use Sylius\Behat\Page\Admin\Crud\UpdatePage as BaseUpdatePage;
 use Sylius\Behat\Service\AutocompleteHelper;
@@ -52,7 +53,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
         $this->activateLanguageTab($languageCode);
         $this->getDocument()->fillField(sprintf('sylius_taxon_translations_%s_name', $languageCode), $name);
 
-        if ($this->getDriver() instanceof Selenium2Driver) {
+        if ($this->getDriver() instanceof Selenium2Driver || $this->getDriver() instanceof ChromeDriver) {
             SlugGenerationHelper::waitForSlugGeneration(
                 $this->getSession(),
                 $this->getElement('slug', ['%language%' => $languageCode])
@@ -224,7 +225,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
      */
     public function activateLanguageTab($locale)
     {
-        if (!$this->getDriver() instanceof Selenium2Driver) {
+        if (!$this->getDriver() instanceof Selenium2Driver && !$this->getDriver() instanceof ChromeDriver) {
             return;
         }
 

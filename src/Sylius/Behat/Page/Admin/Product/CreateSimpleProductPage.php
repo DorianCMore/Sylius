@@ -13,6 +13,7 @@ namespace Sylius\Behat\Page\Admin\Product;
 
 use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Mink\Element\NodeElement;
+use DMore\ChromeDriver\ChromeDriver;
 use Sylius\Behat\Behaviour\SpecifiesItsCode;
 use Sylius\Behat\Page\Admin\Crud\CreatePage as BaseCreatePage;
 use Sylius\Behat\Service\SlugGenerationHelper;
@@ -45,7 +46,7 @@ class CreateSimpleProductPage extends BaseCreatePage implements CreateSimpleProd
         $this->activateLanguageTab($localeCode);
         $this->getElement('name', ['%locale%' => $localeCode])->setValue($name);
 
-        if ($this->getDriver() instanceof Selenium2Driver) {
+        if ($this->getDriver() instanceof Selenium2Driver || $this->getDriver() instanceof ChromeDriver) {
             SlugGenerationHelper::waitForSlugGeneration(
                 $this->getSession(),
                 $this->getElement('slug', ['%locale%' => $localeCode])
@@ -151,7 +152,8 @@ class CreateSimpleProductPage extends BaseCreatePage implements CreateSimpleProd
     {
         $this->clickTab('associations');
 
-        Assert::isInstanceOf($this->getDriver(), Selenium2Driver::class);
+        $driver = $this->getDriver();
+        Assert::true($driver instanceof Selenium2Driver || $driver instanceof ChromeDriver);
 
         $dropdown = $this->getElement('association_dropdown', [
             '%association%' => $productAssociationType->getName()
@@ -224,7 +226,7 @@ class CreateSimpleProductPage extends BaseCreatePage implements CreateSimpleProd
      */
     public function activateLanguageTab($locale)
     {
-        if (!$this->getDriver() instanceof Selenium2Driver) {
+        if ($this->getDriver() instanceof Selenium2Driver || $this->getDriver() instanceof ChromeDriver) {
             return;
         }
 
@@ -308,7 +310,7 @@ class CreateSimpleProductPage extends BaseCreatePage implements CreateSimpleProd
     {
         /** @var Selenium2Driver $driver */
         $driver = $this->getDriver();
-        Assert::isInstanceOf($driver, Selenium2Driver::class);
+        Assert::true($driver instanceof Selenium2Driver || $driver instanceof ChromeDriver);
 
         $driver->executeScript('$(\'#sylius_product_attribute_choice\').dropdown(\'show\');');
         $driver->executeScript(sprintf('$(\'#sylius_product_attribute_choice\').dropdown(\'set selected\', \'%s\');', $id));

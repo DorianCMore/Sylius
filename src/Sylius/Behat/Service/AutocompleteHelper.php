@@ -14,6 +14,7 @@ namespace Sylius\Behat\Service;
 use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Session;
+use DMore\ChromeDriver\ChromeDriver;
 use Webmozart\Assert\Assert;
 
 /**
@@ -28,7 +29,8 @@ abstract class AutocompleteHelper
      */
     public static function chooseValue(Session $session, NodeElement $element, $value)
     {
-        Assert::isInstanceOf($session->getDriver(), Selenium2Driver::class);
+        $driver = $session->getDriver();
+        Assert::true($driver instanceof Selenium2Driver || $driver instanceof ChromeDriver);
 
         static::activateAutocompleteDropdown($session, $element);
 
@@ -44,7 +46,8 @@ abstract class AutocompleteHelper
      */
     public static function chooseValues(Session $session, NodeElement $element, array $values)
     {
-        Assert::isInstanceOf($session->getDriver(), Selenium2Driver::class);
+        $driver = $session->getDriver();
+        Assert::true($driver instanceof Selenium2Driver || $driver instanceof ChromeDriver);
 
         static::activateAutocompleteDropdown($session, $element);
 

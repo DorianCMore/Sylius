@@ -69,7 +69,8 @@ class UpdateConfigurableProductPage extends BaseUpdatePage implements UpdateConf
     {
         $this->openTaxonBookmarks();
 
-        Assert::isInstanceOf($this->getDriver(), Selenium2Driver::class);
+        $driver = $this->getDriver();
+        Assert::true($driver instanceof Selenium2Driver || $driver instanceof ChromeDriver);
 
         $this->getDriver()->executeScript(sprintf('$(\'input.search\').val(\'%s\')', $taxon->getName()));
         $this->getElement('search')->click();
