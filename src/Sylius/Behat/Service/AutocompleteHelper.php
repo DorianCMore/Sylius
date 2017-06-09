@@ -81,8 +81,8 @@ abstract class AutocompleteHelper
     private static function waitForElementToBeVisible(Session $session, NodeElement $element)
     {
         $session->wait(5000, sprintf(
-            '$(document.evaluate("%s", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue).dropdown("is visible")',
-            $element->getXpath()
+            '$(document.evaluate(%s, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue).dropdown("is visible")',
+            json_encode($element->getXpath())
         ));
     }
 }
