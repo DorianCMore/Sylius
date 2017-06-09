@@ -24,5 +24,6 @@ abstract class JQueryHelper
     public static function waitForAsynchronousActionsToFinish(Session $session)
     {
         $session->wait(5000, '0 === jQuery.active');
+        usleep(200000);
     }
 }
