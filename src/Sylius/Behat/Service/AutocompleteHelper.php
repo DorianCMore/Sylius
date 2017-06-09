@@ -68,7 +68,7 @@ abstract class AutocompleteHelper
     {
         JQueryHelper::waitForAsynchronousActionsToFinish($session);
 
-        $element->click();
+        $element->find('xpath', 'i')->click();
 
         JQueryHelper::waitForAsynchronousActionsToFinish($session);
         static::waitForElementToBeVisible($session, $element);
