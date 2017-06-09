@@ -277,6 +277,7 @@ class AddressPage extends SymfonyPage implements AddressPageInterface
         }
 
         $addressOption->click();
+        usleep(100000);
     }
 
     /**
@@ -297,6 +298,7 @@ class AddressPage extends SymfonyPage implements AddressPageInterface
         }
 
         $addressOption->click();
+        usleep(100000);
     }
 
     /**
