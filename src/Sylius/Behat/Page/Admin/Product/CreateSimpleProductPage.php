@@ -226,7 +226,7 @@ class CreateSimpleProductPage extends BaseCreatePage implements CreateSimpleProd
      */
     public function activateLanguageTab($locale)
     {
-        if ($this->getDriver() instanceof Selenium2Driver || $this->getDriver() instanceof ChromeDriver) {
+        if (!$this->getDriver() instanceof Selenium2Driver && !$this->getDriver() instanceof ChromeDriver) {
             return;
         }
 

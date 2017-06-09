@@ -11,9 +11,12 @@
 
 namespace Sylius\Behat\Page\Admin\Crud;
 
+use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Session;
+use DMore\ChromeDriver\ChromeDriver;
 use Sylius\Behat\Page\SymfonyPage;
+use Sylius\Behat\Service\JQueryHelper;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -45,6 +48,10 @@ class CreatePage extends SymfonyPage implements CreatePageInterface
     public function create()
     {
         $this->getDocument()->pressButton('Create');
+
+        if ($this->getDriver() instanceof Selenium2Driver || $this->getDriver() instanceof ChromeDriver) {
+            JQueryHelper::waitForAsynchronousActionsToFinish($this->getSession());
+        }
     }
 
     /**

@@ -11,9 +11,12 @@
 
 namespace Sylius\Behat\Page\Admin\Crud;
 
+use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Session;
+use DMore\ChromeDriver\ChromeDriver;
 use Sylius\Behat\Page\SymfonyPage;
+use Sylius\Behat\Service\JQueryHelper;
 use Sylius\Component\Core\Formatter\StringInflector;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -46,6 +49,10 @@ class UpdatePage extends SymfonyPage implements UpdatePageInterface
     public function saveChanges()
     {
         $this->getDocument()->pressButton('sylius_save_changes_button');
+
+        if ($this->getDriver() instanceof Selenium2Driver || $this->getDriver() instanceof ChromeDriver) {
+            JQueryHelper::waitForAsynchronousActionsToFinish($this->getSession());
+        }
     }
 
     /**
