@@ -438,12 +438,12 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/DMore/chrome-mink-driver.git",
-                "reference": "b12e439d4485c4ea333df7fd1fbf8cbe5ed6d258"
+                "reference": "28b31256904fb3b23545797dcb5cdad31eb0659c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v3/projects/DMore%2Fchrome-mink-driver/repository/archive.zip?sha=b12e439d4485c4ea333df7fd1fbf8cbe5ed6d258",
-                "reference": "b12e439d4485c4ea333df7fd1fbf8cbe5ed6d258",
+                "url": "https://gitlab.com/api/v3/projects/DMore%2Fchrome-mink-driver/repository/archive.zip?sha=28b31256904fb3b23545797dcb5cdad31eb0659c",
+                "reference": "28b31256904fb3b23545797dcb5cdad31eb0659c",
                 "shasum": ""
             },
             "require": {
@@ -476,7 +476,7 @@
                 }
             ],
             "description": "Mink driver for controlling chrome without selenium",
-            "time": "2017-06-09 12:52:54"
+            "time": "2017-06-09 13:52:51"
         },
         {
             "name": "doctrine/annotations",
