@@ -287,7 +287,7 @@ class AddressPage extends SymfonyPage implements AddressPageInterface
         $this->waitForElement(2, sprintf('%s_province', self::TYPE_BILLING));
         $addressBookSelect = $this->getElement('billing_address_book');
 
-        $addressBookSelect->click();
+        $addressBookSelect->find('css', 'input.search')->click();
         $addressOption = $addressBookSelect->waitFor(5, function () use ($address, $addressBookSelect) {
             return $addressBookSelect->find('css', sprintf('.item[data-id="%s"]', $address->getId()));
         });
